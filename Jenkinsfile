@@ -6,12 +6,6 @@ pipeline {
     }
 
     stages {
-        stage('Clone Repo') {
-      steps {
-        git 'https://github.com/moaviak/blogify-devops4.git'
-      }
-        }
-
         stage('Install Dependencies') {
       steps {
         sh 'npm install'
