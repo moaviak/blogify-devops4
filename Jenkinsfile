@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        DEPLOY_DIR = '/home/ubuntu/node-app'
+        DEPLOY_DIR = '/var/lib/jenkins/deployed-app'
     }
 
     stages {
@@ -26,7 +26,7 @@ pipeline {
 
     post {
         success {
-      echo 'App deployed and running on port 8000.'
+      echo 'App deployed and running.'
         }
         failure {
       echo 'Something went wrong during deployment.'
