@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include('./partials/head') %>
+    <title>Create Blog</title>
+  </head>
+  <body>
+    <%- include('./partials/nav') %>
+
+    <div class="container mt-4">
+      <h1>Create New Blog</h1>
+      <form action="/blogs" method="POST">
+        <div class="mb-3">
+          <label for="title" class="form-label">Title</label>
+          <input
+            type="text"
+            class="form-control"
+            id="title"
+            name="title"
+            required
+          />
+        </div>
+        <div class="mb-3">
+          <label for="content" class="form-label">Content</label>
+          <textarea
+            class="form-control"
+            id="content"
+            name="content"
+            rows="5"
+            required
+          ></textarea>
+        </div>
+        <div class="mb-3">
+          <label for="coverImageURL" class="form-label"
+            >Cover Image URL (optional)</label
+          >
+          <input
+            type="url"
+            class="form-control"
+            id="coverImageURL"
+            name="coverImageURL"
+          />
+        </div>
+        <button type="submit" class="btn btn-primary">Create Blog</button>
+      </form>
+    </div>
+
+    <%- include('./partials/scripts') %>
+  </body>
+</html>

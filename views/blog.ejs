@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include('./partials/head') %>
+    <title><%= blog.title %> - Blogify</title>
+  </head>
+  <body>
+    <%- include('./partials/nav') %>
+
+    <div class="container mt-4">
+      <% if (blog.coverImageURL) { %>
+      <img
+        src="<%= blog.coverImageURL %>"
+        class="img-fluid rounded mb-4"
+        alt="Blog Cover"
+      />
+      <% } %>
+
+      <h1 class="mb-3"><%= blog.title %></h1>
+
+      <div class="d-flex align-items-center mb-4">
+        <img
+          src="<%= blog.createdBy.profileImageUrl %>"
+          class="rounded-circle me-2"
+          width="40"
+          height="40"
+          alt="Author"
+        />
+        <div>
+          <div class="fw-bold"><%= blog.createdBy.fullName %></div>
+          <div class="text-muted">
+            <%= new Date(blog.createdAt).toLocaleDateString() %>
+          </div>
+        </div>
+      </div>
+
+      <div class="blog-content"><%= blog.content %></div>
+
+      <% if (locals.user && user._id === blog.createdBy._id.toString()) { %>
+      <div class="mt-4">
+        <a href="/blogs/edit/<%= blog._id %>" class="btn btn-primary me-2"
+          >Edit</a
+        >
+        <form
+          action="/blogs/<%= blog._id %>/delete"
+          method="POST"
+          class="d-inline"
+        >
+          <button
+            type="submit"
+            class="btn btn-danger"
+            onclick="return confirm('Are you sure you want to delete this blog?')"
+          >
+            Delete
+          </button>
+        </form>
+      </div>
+      <% } %>
+    </div>
+
+    <%- include('./partials/scripts') %>
+  </body>
+</html>

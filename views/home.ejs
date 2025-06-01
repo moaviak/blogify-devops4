@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include('./partials/head') %>
+    <title>Blogify - Home</title>
+  </head>
+  <body>
+    <%- include('./partials/nav') %>
+
+    <div class="container mt-4">
+      <div class="jumbotron bg-light p-5 rounded">
+        <h1 class="display-4">Welcome to Blogify</h1>
+        <p class="lead">Share your thoughts and ideas with the world.</p>
+        <hr class="my-4" />
+        <p>
+          Get started by creating your own blog post or reading others' stories.
+        </p>
+        <a class="btn btn-primary btn-lg" href="/blogs/create" role="button"
+          >Create Blog</a
+        >
+      </div>
+
+      <h2 class="mt-5 mb-4">Recent Blogs</h2>
+      <div class="row">
+        <% if (blogs && blogs.length > 0) { %> <% blogs.forEach(blog => { %>
+        <div class="col-md-4 mb-4">
+          <div class="card h-100">
+            <% if (blog.coverImageURL) { %>
+            <img
+              src="<%= blog.coverImageURL %>"
+              class="card-img-top"
+              alt="Blog Cover"
+            />
+            <% } %>
+            <div class="card-body">
+              <h5 class="card-title"><%= blog.title %></h5>
+              <p class="card-text"><%= blog.content.substring(0, 100) %>...</p>
+              <p class="card-text">
+                <small class="text-muted"
+                  >By <%= blog.createdBy.fullName %></small
+                >
+              </p>
+              <a href="/blogs/<%= blog._id %>" class="btn btn-primary"
+                >Read More</a
+              >
+            </div>
+          </div>
+        </div>
+        <% }) %> <% } else { %>
+        <div class="col-12">
+          <p>No blogs found. Be the first to create one!</p>
+        </div>
+        <% } %>
+      </div>
+    </div>
+
+    <%- include('./partials/scripts') %>
+  </body>
+</html>
