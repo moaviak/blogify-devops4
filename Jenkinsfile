@@ -79,7 +79,7 @@ pipeline {
             pm2 delete blogify || true
 
             # Start with PM2
-            pm2 start ecosystem.config.js
+            pm2 start ecosystem.config.cjs
             pm2 save
 
             # Verify it's running
