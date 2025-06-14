@@ -73,31 +73,18 @@ pipeline {
 
         stage('Deploy Application') {
       steps {
-        script {
-          sh '''
-                        echo "Starting Node.js application..."
+        sh '''
+            # Stop existing PM2 process
+            pm2 stop blogify || true
+            pm2 delete blogify || true
 
-                        # Set environment for production
-                        export NODE_ENV=production
+            # Start with PM2
+            pm2 start ecosystem.config.js
+            pm2 save
 
-                        # Start the application in background with logging
-                        nohup node index.js > ${LOG_DIR}/${APP_NAME}.log 2>&1 &
-
-                        # Save the PID
-                        echo $! > ${PID_FILE}
-
-                        echo "Application started with PID: $(cat ${PID_FILE})"
-
-                        # Wait a moment and check if the process is still running
-                        sleep 3
-                        if ps -p $(cat ${PID_FILE}) > /dev/null 2>&1; then
-                            echo "Application is running successfully"
-                        else
-                            echo "Application failed to start"
-                            exit 1
-                        fi
-                    '''
-        }
+            # Verify it's running
+            pm2 status
+        '''
       }
         }
     }
