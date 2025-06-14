@@ -4,7 +4,7 @@ pipeline {
     environment {
         NODE_VERSION = '18'
         APP_NAME = 'blogify'
-        APP_PORT = '3000'
+        PORT = '3000'
         LOG_DIR = '/var/log/jenkins-apps'
         PID_FILE = "/tmp/${APP_NAME}.pid"
     }
@@ -51,7 +51,7 @@ pipeline {
                         fi
 
                         # Kill any process running on the app port
-                        pkill -f "node.*${APP_PORT}" || true
+                        pkill -f "node.*${PORT}" || true
                         sleep 2
                     '''
         }
